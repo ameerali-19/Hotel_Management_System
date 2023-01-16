@@ -29,7 +29,7 @@ git clone https://github.com/ameerali-19/Hotel_Management_System.git
 pip install -r requirements.txt
 ```
 3. Update the `main.py` and `prerequisites.py` file with your MySQL database credentials, including your username and password for the MySQL connection
-4. To create a new database in MySQL and corresponding necessary tables in it , execute the file `prerequisites.py` **just once**.
+4. To create a new database and corresponding tables in MySQL , execute the file `prerequisites.py` **just once**.
 ```
 python prerequisites.py
 ```
