@@ -28,10 +28,10 @@ git clone https://github.com/ameerali-19/Hotel_Management_System.git
 ```
 pip install -r requirements.txt
 ```
-3. Update the `main.py` and `prerequisites.py` file with your MySQL database credentials, including your username and password for the MySQL connection
-4. To create a new database and corresponding tables in MySQL , execute the file `prerequisites.py` **just once**.
+3. Update the `main.py` and `setup.py` file with your MySQL database credentials, including your username and password for the MySQL connection
+4. To create a new database and corresponding tables in MySQL , execute the file `setup.py` **just once**.
 ```
-python prerequisites.py
+python setup.py
 ```
 5. Give the absolute path of your logo.ico file in the logo_path variable in the `main.py` file.
 6. Run the following command to start the application
