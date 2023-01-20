@@ -1,10 +1,14 @@
 import mysql.connector
 
+#Substitute your credentials here
+username = "root"
+password = "password"
+
 # MySQL connection code
 init_conn = mysql.connector.connect(
   host="localhost",
-  user="root",
-  passwd="password"
+  user=username,
+  passwd=password
 )
 init_curs = init_conn.cursor()
 init_curs.execute('CREATE DATABASE IF NOT EXISTS hms')
@@ -13,8 +17,8 @@ init_conn.close()
 
 my_db = mysql.connector.connect(
   host="localhost",
-  user="root",
-  passwd="password",
+  user=username,
+  passwd=password,
   database="hms"
 )
 my_conn = my_db.cursor()
