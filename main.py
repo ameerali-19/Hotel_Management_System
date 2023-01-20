@@ -5,11 +5,16 @@ from datetime import datetime
 from datetime import date
 import ttkbootstrap as tb
 
+
+#Substitute your credentials here
+username = "root"
+password = "password"
+
 # MySQL connection code
 my_db = mysql.connector.connect(
     host="localhost",
-    user="root",
-    passwd="password",
+    user=username,
+    passwd=password,
     database="hms"
 )
 my_conn = my_db.cursor()
@@ -67,7 +72,8 @@ cost_label = tk.Label(input_frame, text='Cost: ', font=('Helvetica', 11))
 cost_entry = tk.Entry(input_frame, font=('Helvetica', 11))
 
 status_label = tk.Label(input_frame, text='Status: ', font=('Helvetica', 11))
-status_entry = tk.Entry(input_frame, font=('Helvetica', 11))
+status_var = tk.StringVar(value="Checked In")
+status_entry = ttk.Combobox(input_frame,textvariable=status_var, values=["Checked In", "Checked Out"], font=('Helvetica', 11))
 
 # Create the treeview frame
 treeview_frame = tk.Frame(window)
@@ -472,7 +478,9 @@ def edit():
         clear()
         checkin_entry.insert(0,today)
         checkout_entry.insert(0,today)
-        button5.configure(text="EDIT CUSTOMER",bootstyle="outline",command=edit)
+        edit_button.configure(text="EDIT CUSTOMER",bootstyle="outline",command=edit)
+        cancel_edit_button.grid_remove()
+        delete_button.grid(row=5)
         cost_label.grid_remove()
         cost_entry.grid_remove()
         status_label.grid_remove()
@@ -489,23 +497,41 @@ def edit():
     room_entry.insert(0,selected_rno)
     cost_entry.insert(0,selected_cost)
     status_entry.insert(0,selected_status)
-    button5.configure(text="CONFIRM EDIT",bootstyle="info,outline",command=editconf)
+    edit_button.configure(text="CONFIRM EDIT",bootstyle="info,outline",command=editconf)
+    cancel_edit_button.grid(row=5, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+    delete_button.grid(row=6)
 
+
+def cancel_edit():
+    clear()
+    checkin_entry.insert(0,today)
+    checkout_entry.insert(0,today)
+    edit_button.configure(text="EDIT CUSTOMER",bootstyle="outline",command=edit)
+    cancel_edit_button.grid_remove()
+    delete_button.grid(row=5)
+    cost_label.grid_remove()
+    cost_entry.grid_remove()
+    status_label.grid_remove()
+    status_entry.grid_remove()
+
+    
 # Create the buttons
-button1 = tb.Button(input_frame, text='CHECKIN', width=20,bootstyle="success,outline", takefocus=False, command=addcust)
-button1.grid(row=1, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+checkin_button = tb.Button(input_frame, text='CHECKIN', width=20,bootstyle="success,outline", takefocus=False, command=addcust)
+checkin_button.grid(row=1, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
 
-button4 = tb.Button(input_frame, text='CHECKOUT', width=20,bootstyle="danger,outline", takefocus=False, command=checkout)
-button4.grid(row=2, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+checkout_button = tb.Button(input_frame, text='CHECKOUT', width=20,bootstyle="danger,outline", takefocus=False, command=checkout)
+checkout_button.grid(row=2, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
 
-button3 = tb.Button(input_frame, text='ROOMS', width=20,bootstyle="outline", takefocus=False, command=roomview)
-button3.grid(row=3, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+rooms_button = tb.Button(input_frame, text='ROOMS', width=20,bootstyle="outline", takefocus=False, command=roomview)
+rooms_button.grid(row=3, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
 
-button5 = tb.Button(input_frame, text='EDIT CUSTOMER', width=20,bootstyle="outline", takefocus=False, command=edit)
-button5.grid(row=4, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+edit_button = tb.Button(input_frame, text='EDIT CUSTOMER', width=20,bootstyle="outline", takefocus=False, command=edit)
+edit_button.grid(row=4, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
 
-button2 = tb.Button(input_frame, text='DELETE CUSTOMER', width=20,bootstyle="outline", takefocus=False, command=delete)
-button2.grid(row=5, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
+delete_button = tb.Button(input_frame, text='DELETE CUSTOMER', width=20,bootstyle="outline", takefocus=False, command=delete)
+delete_button.grid(row=5, column=0, padx=(0, 0), pady=(10, 10), ipadx=1, ipady=4)
 
-custview()# Called to initially display the customer details when the window is opened.
+cancel_edit_button = tb.Button(input_frame, text='CANCEL EDIT', width=20,bootstyle="info,outline", takefocus=False, command=cancel_edit)
+
+custview()      # Called to initially display the customer details when the window is opened.
 window.mainloop()
