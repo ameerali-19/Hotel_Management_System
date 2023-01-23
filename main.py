@@ -380,6 +380,8 @@ def on_roomtree_select(event):
     selected_room_type = selected_item_values[1]
     selected_room_price = selected_item_values[2]
     selected_room_vacancy = selected_item_values[3]
+    room_entry.delete(0, tk.END)
+    room_entry.insert(0,selected_roomno)
 
 
 # Function to get the details of the selected customer
